@@ -1,0 +1,41 @@
+# ── Dependencias ──────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Build ─────────────────────────────────────────────────────────────────────
+dist/
+
+# ── Variables de entorno (NUNCA subir) ────────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.staging
+.env.*
+
+# ── Bases de datos SQLite ─────────────────────────────────────────────────────
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# ── Archivos subidos por usuarios ─────────────────────────────────────────────
+uploads/
+pdfs/
+
+# ── Secreto JWT generado en runtime ───────────────────────────────────────────
+data/jwt_secret.txt
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+
+# ── Sistema operativo ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
