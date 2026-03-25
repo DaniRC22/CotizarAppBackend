@@ -202,6 +202,12 @@ tr:hover td{background:#1e1e2a}
         <button class="btn-gold" style="width:100%" onclick="updateMaxDevices()">Actualizar</button>
       </div>
     </div>
+    <div class="form-row">
+      <div class="form-group"><label>Extender licencia (días desde hoy)</label><input id="dev-renew-days" type="number" min="1" value="365" placeholder="Ej: 365"></div>
+      <div class="form-group" style="display:flex;align-items:flex-end">
+        <button class="btn-ghost" style="width:100%;border-color:#C9952A;color:#C9952A" onclick="renewLicense()">Renovar</button>
+      </div>
+    </div>
     <div class="modal-footer">
       <button class="btn-ghost" onclick="closeModal('modal-devices')">Cerrar</button>
       <button class="btn-danger btn-sm" onclick="revokeLicense()" style="margin-right:auto">Revocar Licencia</button>
@@ -436,6 +442,18 @@ async function updateMaxDevices() {
   });
   if (!data.ok) return toast(data.error || 'Error', 'err');
   toast('Máximo de dispositivos actualizado', 'ok');
+  loadLicencias();
+}
+
+async function renewLicense() {
+  const days = parseInt(document.getElementById('dev-renew-days').value);
+  if (!days || days < 1) return toast('Ingresá una cantidad de días válida', 'err');
+  const data = await apiJSON('/api/license/renew', {
+    method: 'POST',
+    body: JSON.stringify({ licenseKey: currentLicenseKey, days }),
+  });
+  if (!data.ok) return toast(data.error || 'Error', 'err');
+  toast('Licencia renovada hasta ' + fmtDate(data.expiresAt), 'ok');
   loadLicencias();
 }
 
