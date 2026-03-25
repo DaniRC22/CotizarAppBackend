@@ -10,6 +10,7 @@ import {
   RevokeLicenseSchema,
   CreateCustomerSchema,
   RemoveMachineSchema,
+  UpdateMaxDevicesSchema,
 } from '../validation/schemas';
 
 const router = Router();
@@ -17,12 +18,13 @@ const router = Router();
 const billingLicenseService = new BillingLicenseService(billingDb);
 const billingLicenseController = new BillingLicenseController(billingLicenseService);
 
-router.post('/license/validate',       validate(ValidateLicenseSchema),  billingLicenseController.validate);
-router.post('/license/create',         validate(CreateLicenseSchema),    billingLicenseController.createLicense);
-router.post('/license/renew',          validate(RenewLicenseSchema),     billingLicenseController.renewLicense);
-router.post('/license/revoke',         validate(RevokeLicenseSchema),    billingLicenseController.revokeLicense);
-router.post('/license/remove-machine', validate(RemoveMachineSchema),    billingLicenseController.removeMachine);
-router.post('/customer/create',        validate(CreateCustomerSchema),   billingLicenseController.createCustomer);
+router.post('/license/validate',         validate(ValidateLicenseSchema),     billingLicenseController.validate);
+router.post('/license/create',          validate(CreateLicenseSchema),       billingLicenseController.createLicense);
+router.post('/license/renew',           validate(RenewLicenseSchema),        billingLicenseController.renewLicense);
+router.post('/license/revoke',          validate(RevokeLicenseSchema),       billingLicenseController.revokeLicense);
+router.post('/license/remove-machine',  validate(RemoveMachineSchema),       billingLicenseController.removeMachine);
+router.post('/license/update-max-devices', validate(UpdateMaxDevicesSchema), billingLicenseController.updateMaxDevices);
+router.post('/customer/create',         validate(CreateCustomerSchema),      billingLicenseController.createCustomer);
 
 // Consultas (solo admin)
 router.get('/customers',        billingLicenseController.getCustomers);

@@ -70,3 +70,8 @@ export const RemoveMachineSchema = z.object({
   licenseKey: z.string().min(1, 'licenseKey es requerida'),
   machineId:  z.string().min(1, 'machineId es requerida'),
 });
+
+export const UpdateMaxDevicesSchema = z.object({
+  licenseKey:  z.string().min(1, 'licenseKey es requerida'),
+  max_devices: z.number().int().positive('max_devices debe ser mayor a 0'),
+});

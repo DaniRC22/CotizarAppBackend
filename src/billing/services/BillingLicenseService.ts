@@ -240,5 +240,21 @@ export class BillingLicenseService {
       `SELECT machine_id, created_at FROM license_machines WHERE license_id = ? ORDER BY created_at`
     ).all(license.id) as any[];
   }
+
+  updateMaxDevices(licenseKey: string, maxDevices: number): { ok: true; updated: true; max_devices: number } {
+    const stmt = this.db.prepare(`
+      UPDATE licenses
+      SET max_devices = ?
+      WHERE license_key = ? AND is_active = 1
+    `);
+
+    const result = stmt.run(maxDevices, licenseKey);
+
+    if (result.changes === 0) {
+      throw new Error('License not found or inactive');
+    }
+
+    return { ok: true, updated: true, max_devices: maxDevices };
+  }
 }
 

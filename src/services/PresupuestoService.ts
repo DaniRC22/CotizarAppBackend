@@ -118,7 +118,7 @@ export class PresupuestoService {
   ) {
     const subtotal = items.reduce((s, i) => s + (Number(i.cantidad) * Number(i.precio_unitario)), 0);
     const descuento_pct = data.descuento_pct || 0;
-    const iva_pct = data.iva_pct || 21;
+    const iva_pct = data.iva_pct ?? 21;
 
     const descuento = subtotal * (descuento_pct / 100);
     const base = subtotal - descuento;

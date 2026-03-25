@@ -109,5 +109,16 @@ export class BillingLicenseController {
       res.status(500).json({ ok: false, error: e.message });
     }
   };
+
+  updateMaxDevices = (req: Request, res: Response): void => {
+    try {
+      if (!isAuthorized(req)) { res.status(403).json({ ok: false, error: 'Unauthorized' }); return; }
+      const { licenseKey, max_devices } = req.body;
+      const result = this.billingLicenseService.updateMaxDevices(licenseKey, max_devices);
+      res.json(result);
+    } catch (e: any) {
+      res.status(500).json({ ok: false, error: e.message });
+    }
+  };
 }
 

@@ -13,6 +13,7 @@ import pdfRouter from './routes/pdf';
 import authRouter from './routes/auth';
 import { requireAuth } from './middlewares/authMiddleware';
 import billingRouter from './routes/billing';
+import adminRouter from './routes/admin';
 import { errorHandler } from './middlewares/errorHandler';
 import { requestLogger } from './middlewares/requestLogger';
 
@@ -44,6 +45,7 @@ app.use('/api/presupuestos', requireAuth, presupuestosRouter);
 app.use('/api/config', requireAuth, configRouter);
 app.use('/api/pdf', requireAuth, pdfRouter);
 app.use('/api', billingRouter);
+app.use('/admin', adminRouter);
 
 // ── Health check ───────────────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => res.json({ ok: true, time: new Date().toISOString() }));
